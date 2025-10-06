@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Nikki's installer
+# Cherry's installer
 
 # check env
 if [[ ! -x "/bin/opkg" && ! -x "/usr/bin/apk" || ! -x "/sbin/fw4" ]]; then
@@ -31,8 +31,8 @@ case "$DISTRIB_RELEASE" in
 esac
 
 # feed url
-repository_url="https://nikkinikki.pages.dev"
-feed_url="$repository_url/$branch/$arch/nikki"
+repository_url="https://cherrylink.pages.dev"
+feed_url="$repository_url/$branch/$arch/cherry"
 
 if [ -x "/bin/opkg" ]; then
 	# update feeds
@@ -43,18 +43,18 @@ if [ -x "/bin/opkg" ]; then
 	languages=$(opkg list-installed luci-i18n-base-* | cut -d ' ' -f 1 | cut -d '-' -f 4-)
 	# get latest version
 	echo "get latest version"
-	wget -O nikki.version $feed_url/index.json
+	wget -O cherry.version $feed_url/index.json
 	# install ipks
 	echo "install ipks"
-	eval "$(jsonfilter -i nikki.version -e "nikki_version=@['packages']['nikki']" -e "luci_app_nikki_version=@['packages']['luci-app-nikki']")"
-	opkg install "$feed_url/nikki_${nikki_version}_${arch}.ipk"
-	opkg install "$feed_url/luci-app-nikki_${luci_app_nikki_version}_all.ipk"
+	eval "$(jsonfilter -i cherry.version -e "cherry_version=@['packages']['cherry']" -e "luci_app_cherry_version=@['packages']['luci-app-cherry']")"
+	opkg install "$feed_url/cherry_${cherry_version}_${arch}.ipk"
+	opkg install "$feed_url/luci-app-cherry_${luci_app_cherry_version}_all.ipk"
 	for lang in $languages; do
-		lang_version=$(jsonfilter -i nikki.version -e "@['packages']['luci-i18n-nikki-${lang}']")
-		opkg install "$feed_url/luci-i18n-nikki-${lang}_${lang_version}_all.ipk"
+		lang_version=$(jsonfilter -i cherry.version -e "@['packages']['luci-i18n-cherry-${lang}']")
+		opkg install "$feed_url/luci-i18n-cherry-${lang}_${lang_version}_all.ipk"
 	done
 	
-	rm -f nikki.version
+	rm -f cherry.version
 elif [ -x "/usr/bin/apk" ]; then
 	# update feeds
 	echo "update feeds"
@@ -64,9 +64,9 @@ elif [ -x "/usr/bin/apk" ]; then
 	languages=$(apk list --installed --manifest luci-i18n-base-* | cut -d ' ' -f 1 | cut -d '-' -f 4-)
 	# install apks from remote repository
 	echo "install apks from remote repository"
-	apk add --allow-untrusted -X $feed_url/packages.adb nikki luci-app-nikki
+	apk add --allow-untrusted -X $feed_url/packages.adb cherry luci-app-cherry
 	for lang in $languages; do
-		apk add --allow-untrusted -X $feed_url/packages.adb "luci-i18n-nikki-${lang}"
+		apk add --allow-untrusted -X $feed_url/packages.adb "luci-i18n-cherry-${lang}"
 	done
 fi
 

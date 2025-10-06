@@ -17,15 +17,15 @@ jobs:
         name: checkout
         uses: actions/checkout@v4
         with:
-          repository: nikkinikki-org/OpenWrt-nikki
+          repository: cherrylink/openwrt-cherry
           ref: main
-          path: OpenWrt-nikki
+          path: OpenWrt-cherry
       - id: info
         name: info
         run: |
-          echo "pkg_source_version=$(grep "PKG_SOURCE_VERSION:=" OpenWrt-nikki/nikki/Makefile | cut -d '=' -f 2)" >> $GITHUB_OUTPUT
-          echo "pkg_mirror_hash=$(grep "PKG_MIRROR_HASH:=" OpenWrt-nikki/nikki/Makefile | cut -d '=' -f 2)" >> $GITHUB_OUTPUT
-          echo "pkg_build_version=$(grep "PKG_BUILD_VERSION:=" OpenWrt-nikki/nikki/Makefile | cut -d '=' -f 2)" >> $GITHUB_OUTPUT
+          echo "pkg_source_version=$(grep "PKG_SOURCE_VERSION:=" OpenWrt-cherry/cherry/Makefile | cut -d '=' -f 2)" >> $GITHUB_OUTPUT
+          echo "pkg_mirror_hash=$(grep "PKG_MIRROR_HASH:=" OpenWrt-cherry/cherry/Makefile | cut -d '=' -f 2)" >> $GITHUB_OUTPUT
+          echo "pkg_build_version=$(grep "PKG_BUILD_VERSION:=" OpenWrt-cherry/cherry/Makefile | cut -d '=' -f 2)" >> $GITHUB_OUTPUT
   get_latest_info:
     runs-on: ubuntu-latest
     outputs:
@@ -61,22 +61,22 @@ jobs:
         name: checkout
         uses: actions/checkout@v4
         with:
-          repository: nikkinikki-org/OpenWrt-nikki
+          repository: cherrylink/openwrt-cherry
           ref: main
-          path: OpenWrt-nikki
+          path: OpenWrt-cherry
       - id: update
         name: update
         run: |
-          sed -i "s/PKG_RELEASE:=.*/PKG_RELEASE:=1/" OpenWrt-nikki/nikki/Makefile
-          sed -i "s/PKG_SOURCE_DATE:=.*/PKG_SOURCE_DATE:=${{ needs.get_latest_info.outputs.commit_date }}/" OpenWrt-nikki/nikki/Makefile
-          sed -i "s/PKG_SOURCE_VERSION:=.*/PKG_SOURCE_VERSION:=${{ needs.get_latest_info.outputs.commit_sha }}/" OpenWrt-nikki/nikki/Makefile
-          sed -i "s/PKG_MIRROR_HASH:=.*/PKG_MIRROR_HASH:=${{ needs.get_latest_info.outputs.checksum }}/" OpenWrt-nikki/nikki/Makefile
-          sed -i "s/PKG_BUILD_VERSION:=.*/PKG_BUILD_VERSION:=alpha-${{ needs.get_latest_info.outputs.short_commit_sha }}/" OpenWrt-nikki/nikki/Makefile
+          sed -i "s/PKG_RELEASE:=.*/PKG_RELEASE:=1/" OpenWrt-cherry/cherry/Makefile
+          sed -i "s/PKG_SOURCE_DATE:=.*/PKG_SOURCE_DATE:=${{ needs.get_latest_info.outputs.commit_date }}/" OpenWrt-cherry/cherry/Makefile
+          sed -i "s/PKG_SOURCE_VERSION:=.*/PKG_SOURCE_VERSION:=${{ needs.get_latest_info.outputs.commit_sha }}/" OpenWrt-cherry/cherry/Makefile
+          sed -i "s/PKG_MIRROR_HASH:=.*/PKG_MIRROR_HASH:=${{ needs.get_latest_info.outputs.checksum }}/" OpenWrt-cherry/cherry/Makefile
+          sed -i "s/PKG_BUILD_VERSION:=.*/PKG_BUILD_VERSION:=alpha-${{ needs.get_latest_info.outputs.short_commit_sha }}/" OpenWrt-cherry/cherry/Makefile
       - id: pr
         name: pr
         uses: peter-evans/create-pull-request@v6
         with:
-          path: OpenWrt-nikki
+          path: OpenWrt-cherry
           branch: dependabot
           commit-message: "build: update mihomo to ${{ needs.get_latest_info.outputs.short_commit_sha }}"
           title: "build: update mihomo to ${{ needs.get_latest_info.outputs.short_commit_sha }}"

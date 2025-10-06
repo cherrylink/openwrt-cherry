@@ -1,0 +1,5 @@
+/etc/cherry/profiles/
+/etc/cherry/subscriptions/
+/etc/cherry/mixin.yaml
+/etc/cherry/run/providers/rule/
+/etc/cherry/run/providers/proxy/

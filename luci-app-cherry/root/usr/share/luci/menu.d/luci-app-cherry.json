@@ -1,0 +1,60 @@
+{
+    "admin/services/cherry": {
+        "title": "Cherry",
+        "action": {
+            "type": "firstchild"
+        },
+        "depends": {
+            "acl": [ "luci-app-cherry" ],
+            "uci": { "cherry": true }
+        }
+    },
+    "admin/services/cherry/config": {
+        "title": "App Config",
+        "order": 10,
+        "action": {
+            "type": "view",
+            "path": "cherry/app"
+        }
+    },
+    "admin/services/cherry/profile": {
+        "title": "Profile",
+        "order": 20,
+        "action": {
+            "type": "view",
+            "path": "cherry/profile"
+        }
+    },
+    "admin/services/cherry/mixin": {
+        "title": "Mixin Config",
+        "order": 30,
+        "action": {
+            "type": "view",
+            "path": "cherry/mixin"
+        }
+    },
+    "admin/services/cherry/proxy": {
+        "title": "Proxy Config",
+        "order": 40,
+        "action": {
+            "type": "view",
+            "path": "cherry/proxy"
+        }
+    },
+    "admin/services/cherry/editor": {
+        "title": "Editor",
+        "order": 50,
+        "action": {
+            "type": "view",
+            "path": "cherry/editor"
+        }
+    },
+    "admin/services/cherry/log": {
+        "title": "Log",
+        "order": 60,
+        "action": {
+            "type": "view",
+            "path": "cherry/log"
+        }
+    }
+}

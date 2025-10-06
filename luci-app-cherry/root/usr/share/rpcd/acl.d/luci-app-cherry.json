@@ -1,0 +1,37 @@
+{
+    "luci-app-cherry": {
+        "description": "Grant access to cherry procedures",
+        "read": {
+            "uci": [ "cherry" ],
+            "ubus": {
+                "rc": [ "*" ],
+                "luci.cherry": [ "*" ]
+            },
+            "file": {
+                "/etc/cherry/profiles/*.yaml": ["read"],
+                "/etc/cherry/profiles/*.yml": ["read"],
+                "/etc/cherry/subscriptions/*.yaml": ["read"],
+                "/etc/cherry/subscriptions/*.yml": ["read"],
+                "/etc/cherry/mixin.yaml": ["read"],
+                "/etc/cherry/run/config.yaml": ["read"],
+                "/etc/cherry/run/providers/rule/*": ["read"],
+                "/etc/cherry/run/providers/proxy/*": ["read"],
+                "/var/log/cherry/*.log": ["read"]
+            }
+        },
+        "write": {
+            "uci": [ "cherry" ],
+            "file": {
+                "/etc/cherry/profiles/*.yaml": ["write"],
+                "/etc/cherry/profiles/*.yml": ["write"],
+                "/etc/cherry/subscriptions/*.yaml": ["write"],
+                "/etc/cherry/subscriptions/*.yml": ["write"],
+                "/etc/cherry/mixin.yaml": ["write"],
+                "/etc/cherry/run/config.yaml": ["write"],
+                "/etc/cherry/run/providers/rule/*": ["write"],
+                "/etc/cherry/run/providers/proxy/*": ["write"],
+                "/var/log/cherry/*.log": ["write"]
+            }
+        }
+    }
+}
