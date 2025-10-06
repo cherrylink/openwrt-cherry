@@ -52,6 +52,7 @@ jobs:
           ARCH: ${{ matrix.arch }}-${{ matrix.branch }}
           FEEDNAME: cherry
           PACKAGES: luci-app-cherry
+          EXTRA_FEED_ARGS: -j1 V=sc
           NO_REFRESH_CHECK: true
 
       - name: upload
