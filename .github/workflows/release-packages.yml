@@ -56,7 +56,8 @@ jobs:
           ARCH: ${{ matrix.arch }}-${{ matrix.branch }}
           FEEDNAME: cherry
           PACKAGES: luci-app-cherry
-          EXTRA_FEED_ARGS: -j1 V=sc
+          MAKEFLAGS: -j1
+          V: sc
           INDEX: 1
           KEY_BUILD: ${{ secrets.KEY_BUILD }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
